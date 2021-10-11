@@ -1,0 +1,17 @@
+name: shfmt
+description: shfmt action
+inputs:
+  github_token:
+    description: 'GitHub Access Token'
+    required: true
+  github_commit_token:
+    description: 'GitHub Access Token'
+    required: true
+runs:
+  using: composite
+  steps:
+    - uses: suzuki-shunsuke/github-action-format@main
+      with:
+        github_token: ${{ inputs.github_token }}
+        command: git ls-files | grep -E "\.sh$" | xargs shfmt -w -s -l
+        commit_message: "style: shfmt"
